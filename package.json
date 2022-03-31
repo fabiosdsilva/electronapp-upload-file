@@ -1,0 +1,28 @@
+{
+  "name": "electronapp-upload-file",
+  "version": "1.0.0",
+  "description": "Este projeto foi desenvolvido para realizar upload de arquivos de um computador para o outro. Basta o usuário utilizar o mesmo email e senha.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fabiosdsilva/electronapp-upload-file.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fabiosdsilva/electronapp-upload-file/issues"
+  },
+  "homepage": "https://github.com/fabiosdsilva/electronapp-upload-file#readme",
+  "devDependencies": {
+    "electron": "^18.0.1",
+    "electron-reload": "^2.0.0-alpha.1"
+  },
+  "dependencies": {
+    "mysql": "^2.18.1"
+  }
+}
