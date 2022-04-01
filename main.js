@@ -3,6 +3,16 @@ const path = require('path');
 
 require('electron-reload')(__dirname);
 
+// Database
+const db = require('./database/db');
+db.connect(error => {
+    if (error) {
+        throw error
+    }
+
+    console.log('Conected the database');
+})
+
 var win;
 
 const createWindow = () => {
