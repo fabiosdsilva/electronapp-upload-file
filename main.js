@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 
 require('electron-reload')(__dirname);
@@ -29,6 +29,11 @@ const createWindow = () => {
     
     win.setMenu(null);
     win.loadFile(path.resolve(__dirname, 'views', 'login', 'index.html'));
+
+    // Login
+    ipcMain.on('form', (event, result) => {
+        console.log(result);
+    });
 }
 
 app.whenReady().then(() => {
