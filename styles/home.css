@@ -1,0 +1,113 @@
+body, html {
+    margin: 0px;
+    padding: 0px;
+
+    font-family: 'Roboto', sans-serif;
+}
+
+.profile {
+    background-color: #0364B8;
+    border-radius: 50%;
+
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 20px;
+
+}
+
+.profile img {
+    width: 20px;
+    height: 20px;
+
+    color: white;
+}
+
+header {
+    height: 104px;
+
+    background-color:#44A0F4;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    font-size: 24px;
+}
+
+header #title {
+    line-height: 10px;
+    color: white;
+
+    margin-left: 20px;
+}
+
+.add-more-files {
+    height: 30px;
+
+    background-color: #63C2FF;
+
+    display: flex;
+    justify-items: center;
+    align-items: center;
+}
+
+.add-more-files img {
+    margin-left: 20px;
+
+    margin-right: 10px;
+
+    width: 20px;
+    height: 20px;
+
+    color: white;
+}
+
+.add-more-files button {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    width: 100%;
+    height: 100%;
+
+    text-align: start;
+
+    outline: none;
+    border: none;
+
+    background-color: #63C2FF;
+    color: white;
+
+    font-size: 13px;
+}
+
+.add-more-files button:hover {
+    background-color: #065383;
+}
+
+.content {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.content .upload .box {
+    width: auto;
+    height: auto;
+
+    border-radius: 10px;
+    background-color: #f0f0f0;
+
+    padding: 2%;
+}
+
+.content .upload .box p {
+    font-size: 13px;
+    line-height: 10px;
+}
