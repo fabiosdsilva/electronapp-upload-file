@@ -1,41 +1,71 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, webContents, dialog } = require('electron');
 const path = require('path');
 
 require('electron-reload')(__dirname);
 
 // Database
-const db = require('./database/db');
-db.connect(error => {
-    if (error) {
-        throw error
-    }
+const con = require('./database/db');
 
-    console.log('Conected the database');
-})
+con.connect((error) => {
+    if (error) throw error
+    console.log('Connected with the database');
+});
+
+// Query
+const { login, store } = require('./queries');
+
+// Abrir caixa de arquivo
+const handleFileOpen = async() => {
+    const { canceled, filePaths } = await dialog.showOpenDialog()
+    if (canceled) {
+      return
+    } else {
+      return filePaths[0]
+    }
+  }
 
 var win;
 
-const createWindow = () => {
+const createWindow = () =>{
     win = new BrowserWindow({
         width: 375,
         height: 650,
         resizable: false,
+        title: 'Login',
         webPreferences: {
+            devTools: true, // provisorio
             nodeIntegration: false,
             contextIsolation: true,
             preload: path.resolve(__dirname, 'preload.js')
         }
     });
-    
-    win.setMenu(null);
-    win.loadFile(path.resolve(__dirname, 'views', 'login', 'index.html'));
+
+    // win.setMenu(null);
+    win.loadURL(path.resolve(__dirname, 'views', 'login', 'index.html'));
 
     // Login
-    ipcMain.on('form', (event, result) => {
-        console.log(result);
+    ipcMain.on('form', async (event, result)  => {
+        login(result, (e) => {
+            // console.log(e);
+
+            if (e != undefined) { //existe um usuário
+                event.returnValue = e;
+            }
+        });
     });
+
+    // Open file
+    ipcMain.handle('dialog:openFile', handleFileOpen);
+
+    // Ler o caminho do arquivo
+    ipcMain.on('path', (event, result) => {
+        console.log(result);
+
+        store(result);
+    })
 }
 
-app.whenReady().then(() => {
+app.whenReady().then(result => {
     createWindow();
-});
+})
+
