@@ -23,6 +23,8 @@
     "electron-reload": "^2.0.0-alpha.1"
   },
   "dependencies": {
-    "mysql": "^2.18.1"
+    "ejs-electron": "^2.1.1",
+    "mysql": "^2.18.1",
+    "sqlite3": "^5.0.2"
   }
 }
