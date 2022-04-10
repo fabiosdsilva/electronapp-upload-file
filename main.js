@@ -1,5 +1,6 @@
 const { app, BrowserWindow, ipcMain, webContents, dialog } = require('electron');
 const path = require('path');
+const fs = require('fs');
 
 require('electron-reload')(__dirname);
 
@@ -12,17 +13,26 @@ con.connect((error) => {
 });
 
 // Query
-const { login, store } = require('./queries');
+const { login, store, getAll } = require('./queries');
+
+// Settings
+let settings = require('./settings/settings');
+
+console.log(settings.notifications)
+
+// ejs-electron
+const ejs = require('ejs-electron');
+ejs.data('settings', settings.notifications)
 
 // Abrir caixa de arquivo
 const handleFileOpen = async() => {
     const { canceled, filePaths } = await dialog.showOpenDialog()
     if (canceled) {
-      return
+        return
     } else {
-      return filePaths[0]
+        return filePaths[0]
     }
-  }
+}
 
 var win;
 
@@ -41,7 +51,7 @@ const createWindow = () =>{
     });
 
     // win.setMenu(null);
-    win.loadURL(path.resolve(__dirname, 'views', 'login', 'index.html'));
+    win.loadURL(path.resolve(__dirname, 'views', 'configuracoes', 'index.ejs'));
 
     // Login
     ipcMain.on('form', async (event, result)  => {
@@ -49,7 +59,7 @@ const createWindow = () =>{
             // console.log(e);
 
             if (e != undefined) { //existe um usuário
-                event.returnValue = e;
+                event.returnValue = e; // refatorar porque estou enviando os dados de novo para o renderizador
             }
         });
     });
@@ -58,11 +68,19 @@ const createWindow = () =>{
     ipcMain.handle('dialog:openFile', handleFileOpen);
 
     // Ler o caminho do arquivo
-    ipcMain.on('path', (event, result) => {
-        console.log(result);
-
+    ipcMain.on('path', async (event, result) => {
         store(result);
-    })
+        console.log(result);
+    });
+
+    // Settings
+    ipcMain.on('check', async (event, result) => {
+
+        if (result !== settings.notifications) {
+            let obj = { notifications: result }
+            await fs.writeFileSync(path.resolve(__dirname, 'settings', 'settings.json'), JSON.stringify(obj));
+        }     
+    });
 }
 
 app.whenReady().then(result => {

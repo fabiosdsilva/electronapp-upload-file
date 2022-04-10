@@ -36,7 +36,7 @@ const store = (file) => {
 
 const getAll = () => {
     
-    sqlite3.all('SELECT * FROM filePath', [], (error, result) => {
+    sqlite3.each('SELECT * FROM filePath', [], (error, result) => {
         if (error) {
             throw error;
         }

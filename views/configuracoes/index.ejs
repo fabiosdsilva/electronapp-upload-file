@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../styles/configiguracoes.css">
+    <title>Configurações</title>
+</head>
+<body>
+       <div class="main">
+            <header>
+                <div id="title">
+                    <p>Configurações</p>
+                </div>
+            </header> 
+
+            <div class="add-more-files">
+                <button id="btn">
+                    <img src="../../assets/icon-more.svg" alt="">
+                    Adicionar mais arquivos
+                </button>
+            </div>
+
+            <div class="back-to">
+                <a href="../home/index.html">
+                    <img src="../../assets/arrow-left.svg" alt="">
+                </a>
+            </div>
+
+            <div class="section">
+                <div class="store">
+                    <p class="style">Armazenamento</p>
+                    <p><b>650 MB de 15 GB</b></p>
+                </div>
+                <div class="notificacoes">
+                    <p class="style">Notificações</p>
+                    <% if (settings === true) { %>
+                        <input type="checkbox" id="checkbox" checked onclick="submitTrue()">
+                    <% } else { %>
+                        <input type="checkbox" id="checkboxx" onclick="submitFalse()">
+                    <% } %>
+                </div>
+                <div class="backup-local">
+                    <p class="style">Backup local</p>
+                    <p class="source">C:\Users\Fabio\Documents</p>
+                </div>
+                <div class="logon">
+                    <button type="submit">Sair da conta</button>
+                </div>
+            </div>
+        </div>
+    <script src="./render.js"></script>
+</body>
+</html>
